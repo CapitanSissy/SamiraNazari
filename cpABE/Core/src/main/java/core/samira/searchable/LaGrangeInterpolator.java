@@ -1,5 +1,7 @@
 package core.samira.searchable;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -7,7 +9,7 @@ public class LaGrangeInterpolator {
   private final BigDecimal[] independentValues, dependentValues;
   private final int degree;
 
-  public LaGrangeInterpolator(BigInteger[] independentValues, BigInteger[] dependentValues) {
+  public LaGrangeInterpolator(BigInteger @NotNull [] independentValues, BigInteger @NotNull [] dependentValues) {
     if (independentValues.length != dependentValues.length) {
       throw new IllegalArgumentException("must be the same number of X values as Y values");
     }

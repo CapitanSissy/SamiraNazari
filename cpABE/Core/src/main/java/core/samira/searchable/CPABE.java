@@ -4,6 +4,8 @@ package core.samira.searchable;
 import it.unisa.dia.gas.jpbc.Element;
 import it.unisa.dia.gas.jpbc.Pairing;
 import it.unisa.dia.gas.plaf.jpbc.pairing.PairingFactory;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.crypto.Cipher;
 import java.io.*;
@@ -56,7 +58,7 @@ public class CPABE {
   }
 
 
-  public static String[] setup(String[] attrs, String MKFileName, String PKFileName, String SKFileName) {
+  public static String @NotNull [] setup(String[] attrs, String MKFileName, String PKFileName, String SKFileName) {
     PKFileName = isEmptyString(PKFileName) ? Default_PKFileName : PKFileName;
     MKFileName = isEmptyString(MKFileName) ? Default_MKFileName : MKFileName;
     SKFileName = isEmptyString(SKFileName) ? Default_SKFileName : SKFileName;
@@ -65,7 +67,7 @@ public class CPABE {
     return keypairArr;
   }
 
-  public static File enc(String encFileName, String policy, String PKFileName, String outputFileName) throws IOException {
+  public static @Nullable File enc(String encFileName, String policy, String PKFileName, String outputFileName) throws IOException {
     Pairing pairing = PairingFactory.getPairing("e.properties");
     Element g = pairing.getG1().newRandomElement().getImmutable();
 
@@ -135,7 +137,7 @@ public class CPABE {
   }
 
 
-  public static OutSourceKey UserKeyGen(String[] attrs, String SKFileName, String OKFileName) {
+  public static @Nullable OutSourceKey UserKeyGen(String[] attrs, String SKFileName, String OKFileName) {
     if (attrs == null || attrs.length == 0) {
       err(Error_Attributes_Missing);
       return null;
@@ -233,27 +235,26 @@ public class CPABE {
     return true;
   }
 
-  public static Index index(String[] keywords, String PKFileName, String PedersenFileName) {
+  public static @Nullable Index index(String[] keywords, String PKFileName, String PedersenFileName) {
 //    PKFileName = isEmptyString(PKFileName) ? Default_PKFileName : PKFileName;
 //    PedersenFileName = isEmptyString(PedersenFileName) ? Default_MKFileName : PedersenFileName;
 //		String[] indexArr = new String[2];
 
-//    PublicKey PK = SerializeUtils.unserialize(PublicKey.class, new File(PKFileName));
-//    if (PK == null) {
-//      err(Error_PK_Missing);
-//      return null;
-//    }
+    PublicKey PK = SerializeUtils.unserialize(PublicKey.class, new File(PKFileName));
+    if (PK == null) {
+      err(Error_PK_Missing);
+      return null;
+    }
     Pedersen Pedersen = SerializeUtils.unserialize(Pedersen.class, new File(PedersenFileName));
     if (Pedersen == null) {
       err(Error_PK_Missing);
       return null;
     }
-//    Index indexArr = mysearch.index(keywords, PK, Pedersen);
-//    return indexArr;
-    return null;
+    Index indexArr = mysearch.index(keywords, PK, Pedersen);
+    return indexArr;
   }
 
-  public static Trapdoor trapdoor(String keyword, String PKFileName, String PedersenFileName) {
+  public static @Nullable Trapdoor trapdoor(String keyword, String PKFileName, String PedersenFileName) {
     PKFileName = isEmptyString(PKFileName) ? Default_PKFileName : PKFileName;
     PedersenFileName = isEmptyString(PedersenFileName) ? Default_MKFileName : PedersenFileName;
 //		String[] indexArr = new String[2];

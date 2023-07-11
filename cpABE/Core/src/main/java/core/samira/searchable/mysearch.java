@@ -3,6 +3,9 @@ package core.samira.searchable;
 import it.unisa.dia.gas.jpbc.Element;
 import it.unisa.dia.gas.jpbc.Pairing;
 import it.unisa.dia.gas.plaf.jpbc.pairing.PairingFactory;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.crypto.Cipher;
 import java.io.*;
@@ -22,7 +25,7 @@ public class mysearch {
   File ciphertextFile;
   private Element Element;
 
-  public static String createFile(String filename) {
+  public static @Nullable String createFile(String filename) {
     File file = new File(filename);
     try {
       if (file.createNewFile()) {
@@ -37,6 +40,8 @@ public class mysearch {
   }
 
   public static File createNewFile(String fileName) {
+    ClassLoader classLoader = mysearch.class.getClassLoader();
+
     File file = new File(fileName);
     if (!file.exists()) {
       try {
@@ -58,7 +63,8 @@ public class mysearch {
   }
 
   //*************************************************************************************
-  public static byte[] xor(byte[] a, byte[] b) {
+  @Contract(pure = true)
+  public static byte @NotNull [] xor(byte @NotNull [] a, byte @NotNull [] b) {
     if (a.length != b.length) {
       throw new IllegalArgumentException("Array must have same length");
     }
@@ -70,7 +76,7 @@ public class mysearch {
   }
 
   //*****************************************************************************************/
-  public static Element hashcode(Element a) {
+  public static Element hashcode(@NotNull Element a) {
 
 //		Element GID = pairing.getG1().newElement().setToRandom();
     byte[] g1Bytes = a.toCanonicalRepresentation();
@@ -86,7 +92,7 @@ public class mysearch {
     return aHash;
   }
 
-  public static Pedersen pedersen() {
+  public static @NotNull Pedersen pedersen() {
     Pedersen PedersenKey = new Pedersen();
     Element g = pairing.getZr().newElement().setToRandom();
     PedersenKey.setG(g);
@@ -108,7 +114,7 @@ public class mysearch {
 
   /*********************************************************************************************/
   @SuppressWarnings("unused")
-  public static String[] KeyGen(String[] attrs, String MKFileName, String PKFileName, String SKFileName) {
+  public static String @NotNull [] KeyGen(String[] attrs, String MKFileName, String PKFileName, String SKFileName) {
     if (MKFileName == null || MKFileName.trim().equals("")) {
       MKFileName = Constants.MKFileName;
     }
@@ -199,7 +205,7 @@ public class mysearch {
 
   /**********************************************************************************************************/
   @SuppressWarnings("unused")
-  public static OutSourceKey UserKeyGen(String[] attrs, SecretKey SK, String OKFileName) {
+  public static @NotNull OutSourceKey UserKeyGen(String[] attrs, SecretKey SK, String OKFileName) {
     if (OKFileName == null || OKFileName.trim().equals("")) {
       OKFileName = "SecretKey";
     }
@@ -288,7 +294,7 @@ public class mysearch {
 /********************************************/
 
   /*********************************************************/
-  public static void fill_policy(Policy p, Element e, PublicKey PK) {
+  public static void fill_policy(@NotNull Policy p, Element e, PublicKey PK) {
     int i;
     int size = p.children == null ? 0 : p.children.length;
     Element zero = pairing.getZr().newElement().setToZero();
@@ -323,7 +329,7 @@ public class mysearch {
 
   /***********************************************************/
 
-  public static Polynomial rand_poly(int deg, Element zero_val) {
+  public static @NotNull Polynomial rand_poly(int deg, @NotNull Element zero_val) {
     int i;
     Polynomial q = new Polynomial();
     q.deg = deg;
@@ -341,7 +347,7 @@ public class mysearch {
   }
 
   /**********************************************************/
-  public static Polynomial rand_poly2(int deg, Element zero_val) {
+  public static @NotNull Polynomial rand_poly2(int deg, @NotNull Element zero_val) {
     int i;
     Polynomial w = new Polynomial();
     w.deg = deg;
@@ -360,7 +366,7 @@ public class mysearch {
 
   /********************************************************************************************************************** */
 
-  public static Element dec(Ciphertext ciphertext, SecretKey SK, OutSourceKey OK) {
+  public static @Nullable Element dec(@NotNull Ciphertext ciphertext, SecretKey SK, OutSourceKey OK) {
     check_sat(SK, ciphertext.p);
     if (ciphertext.p.satisfiable != 1) {
       System.err.println("SK does not satisfies the policy!");
@@ -382,7 +388,7 @@ public class mysearch {
   }
 
   /**************************************************/
-  private static void check_sat(SecretKey SK, Policy p) {
+  private static void check_sat(SecretKey SK, @NotNull Policy p) {
     int i, l;
     int size = p.children == null ? 0 : p.children.length;
     p.satisfiable = 0;
@@ -412,7 +418,7 @@ public class mysearch {
   }
 
   /***********************************************/
-  private static void pick_sat_min_leaves(Policy p, SecretKey SK) {
+  private static void pick_sat_min_leaves(@NotNull Policy p, SecretKey SK) {
     int i, k, l;
     int size = p.children == null ? 0 : p.children.length;
     Integer[] c;
@@ -456,7 +462,7 @@ public class mysearch {
   }
 
   /******************************************/
-  private static void dec_node_flatten(Element r, Element exp, Policy p, SecretKey SK, OutSourceKey OK) {
+  private static void dec_node_flatten(Element r, Element exp, @NotNull Policy p, SecretKey SK, OutSourceKey OK) {
     assert (p.satisfiable == 1);
     if (p.children == null || p.children.length == 0) {
       dec_leaf_flatten(r, exp, p, SK, OK);
@@ -466,7 +472,7 @@ public class mysearch {
   }
 
   /***********************************************/
-  private static void dec_leaf_flatten(Element r, Element exp, Policy p, SecretKey SK, OutSourceKey OK) {
+  private static void dec_leaf_flatten(@NotNull Element r, Element exp, @NotNull Policy p, SecretKey SK, @NotNull OutSourceKey OK) {
 //		SecretKey.SKComponent comp = SK.comps[p.attri];
 
     OSKComponent comp = OK.comps[p.attri];
@@ -493,7 +499,7 @@ public class mysearch {
   }
 
   /***************************************************/
-  private static void dec_internal_flatten(Element r, Element exp, Policy p, SecretKey SK, OutSourceKey OK) {
+  private static void dec_internal_flatten(Element r, Element exp, @NotNull Policy p, SecretKey SK, OutSourceKey OK) {
     int i;
     Element t;
     Element expnew;
@@ -507,7 +513,7 @@ public class mysearch {
   }
 
   /****************************************/
-  public static Element lagrange_coef(List<Integer> S, int i, Element x) {
+  public static Element lagrange_coef(@NotNull List<Integer> S, int i, Element x) {
     int j, k;
     Element r = pairing.getZr().newElement().setToOne();
     Element t;
@@ -527,7 +533,7 @@ public class mysearch {
 
   /*******************************************************************************************************/
 
-  public static Index index(String[] keyword, PublicKey PK, Pedersen pedersen) {
+  public static @NotNull Index index(String @NotNull [] keyword, PublicKey PK, Pedersen pedersen) {
 
     Index I = new Index();
     I.comps = new Index.INComponent[keyword.length];
@@ -572,7 +578,7 @@ public class mysearch {
   }//index
 
   /*********************************************************************************************/
-  public static Trapdoor trapdoor(String keyword, PublicKey PK, Pedersen pedersen) {
+  public static @NotNull Trapdoor trapdoor(String keyword, @NotNull PublicKey PK, @NotNull Pedersen pedersen) {
 //	File TrapdoorFile = createNewFile(TrFileName);
 
     //authentication key
@@ -619,7 +625,7 @@ public class mysearch {
   /**
    * @return
    *******************************************************************************************/
-  public String searchalg(Trapdoor trapdoor, Index index, Pedersen pedersen) {
+  public String searchalg(@NotNull Trapdoor trapdoor, @NotNull Index index, @NotNull Pedersen pedersen) {
     String searchkeyword = trapdoor.keyword;
     int intkeyword = Integer.parseInt(searchkeyword);
     Trapdoor.TRComponent comp = trapdoor.comps[intkeyword];
@@ -663,7 +669,8 @@ public class mysearch {
       this.p = p;
     }
 
-    public int compare(Integer o1, Integer o2) {
+    @Contract(pure = true)
+    public int compare(@NotNull Integer o1, @NotNull Integer o2) {
       int k, l;
       k = p.children[o1].min_leaves;
       l = p.children[o2].min_leaves;
@@ -672,5 +679,5 @@ public class mysearch {
 
   }
 
-}//main
+}
 

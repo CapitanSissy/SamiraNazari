@@ -7,11 +7,135 @@
   <groupId>com.samira.searchable</groupId>
   <artifactId>core</artifactId>
   <version>1.0</version>
-
+  <packaging>jar</packaging>
+  <name>1- Core</name>
+  <url>https://github.com/CapitanSissy/SamiraNazari/</url>
   <properties>
-    <maven.compiler.source>8</maven.compiler.source>
-    <maven.compiler.target>8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
+  <!--[ ‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼ ]-->
+  <dependencies>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>24.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcprov-jdk16</artifactId>
+      <version>1.46</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>1.5</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.11.0</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-net</groupId>
+      <artifactId>commons-net</artifactId>
+      <version>3.9.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>2.0.32</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.10.1</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.jettison</groupId>
+      <artifactId>jettison</artifactId>
+      <version>1.5.4</version>
+    </dependency>
+    <dependency>
+      <groupId>net.java.dev.jna</groupId>
+      <artifactId>jna</artifactId>
+      <version>5.12.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode.json-simple</groupId>
+      <artifactId>json-simple</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>2.2.1-b03</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>3.0-alpha-1</version>
+      <scope>provided</scope>
+    </dependency>
 
+
+    <dependency>
+      <groupId>it.unisa.dia.gas</groupId>
+      <artifactId>jpbc-api</artifactId>
+      <version>2.0.0</version>
+      <systemPath>${basedir}/lib/jpbc-api-2.0.0.jar</systemPath>
+      <scope>system</scope>
+    </dependency>
+    <dependency>
+      <groupId>it.unisa.dia.gas</groupId>
+      <artifactId>jpbc-benchmark</artifactId>
+      <version>2.0.0</version>
+      <systemPath>${basedir}/lib/jpbc-benchmark-2.0.0.jar</systemPath>
+      <scope>system</scope>
+    </dependency>
+    <dependency>
+      <groupId>it.unisa.dia.gas</groupId>
+      <artifactId>jpbc-crypto</artifactId>
+      <version>2.0.0</version>
+      <systemPath>${basedir}/lib/jpbc-crypto-2.0.0.jar</systemPath>
+      <scope>system</scope>
+    </dependency>
+    <dependency>
+      <groupId>it.unisa.dia.gas</groupId>
+      <artifactId>jpbc-pbc</artifactId>
+      <version>2.0.0</version>
+      <systemPath>${basedir}/lib/jpbc-pbc-2.0.0.jar</systemPath>
+      <scope>system</scope>
+    </dependency>
+    <dependency>
+      <groupId>it.unisa.dia.gas</groupId>
+      <artifactId>jpbc-plaf</artifactId>
+      <version>2.0.0</version>
+      <systemPath>${basedir}/lib/jpbc-plaf-2.0.0.jar</systemPath>
+      <scope>system</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.oreilly</groupId>
+      <artifactId>servlet</artifactId>
+      <version>1.5.16</version>
+      <systemPath>${basedir}/lib/cos.jar</systemPath>
+      <scope>system</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.oreilly.servlet</groupId>
+      <artifactId>multipart</artifactId>
+      <version>1.4.0</version>
+      <systemPath>${basedir}/lib/cos-multipart.jar</systemPath>
+      <scope>system</scope>
+    </dependency>
+  </dependencies>
+  <!--[ ‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼‼ ]-->
 </project>

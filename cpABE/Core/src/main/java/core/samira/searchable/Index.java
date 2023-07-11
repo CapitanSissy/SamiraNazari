@@ -2,9 +2,6 @@ package core.samira.searchable;
 
 import it.unisa.dia.gas.jpbc.Element;
 
-//import java.io.Serializable;
-
-
 public class Index implements SimpleSerializable {
 
 

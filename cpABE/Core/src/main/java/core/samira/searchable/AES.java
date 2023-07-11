@@ -3,6 +3,8 @@ package core.samira.searchable;
 //import java.lang.annotation.Target;
 
 import it.unisa.dia.gas.jpbc.Element;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import javax.crypto.Cipher;
 import javax.crypto.CipherOutputStream;
@@ -38,7 +40,7 @@ public class AES {
     crypto(Cipher.DECRYPT_MODE, is, os, e);
   }
 
-  public static void crypto(int mode, InputStream is, OutputStream os, Element e) {
+  public static void crypto(int mode, @NotNull InputStream is, OutputStream os, Element e) {
     try {
       Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
       SecretKey secKey = generateSecretKeyFromElement(e);
@@ -62,7 +64,8 @@ public class AES {
     }
   }
 
-  private static SecretKey generateSecretKeyFromElement(Element e) {
+  @Contract("_ -> new")
+  private static @NotNull SecretKey generateSecretKeyFromElement(@NotNull Element e) {
 //    System.out.println("e:" + e);
     byte[] b = e.toBytes();
     b = Arrays.copyOf(b, 16);
